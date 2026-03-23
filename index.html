@@ -5,85 +5,10 @@
 <title>Audio Library</title>
 
 <script>
-/*const recordings = [
-
-{
-title:"Example Recording",
-audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-sources:
-`Line one of sources
-Line two of sources
-Line three of sources`
-},
-
-{
-title:"Another Recording",
-audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-sources:
-`First line
-Second line
-Third line`
-},
-
-{
-title:"Third Recording",
-audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-sources:
-`Sources go here
-More sources here`
-}
-
-];*/
-
 const folders = [
 	`שיעור פשוט שו''ט של הגמרא של לפירות ירדתי`,
 	`example`
 ];
-	
-async function init() {
-	var recordings;
-    await loadRecordings(folders).then(data => {
-		console.log(data);
-
-		// If your site expects a global variable:
-		recordings = data;
-
-		// or call your render function here
-	});
-    renderRecordings(recordings)
-}
-
-init();
-
-async function loadRecordings(folders) {
-    const promises = folders.map(async (folder) => {
-        const basePath = `/content/${folder}/`;
-
-        try {
-            const [sources, link] = await Promise.all([
-                fetch(basePath + 'mm.txt').then(r => r.text()),
-                fetch(basePath + 'thd.txt').then(r => r.text())
-            ]);
-
-            return {
-                title: folder, // or format this if needed
-                audio: basePath + 'audio.mp3',
-                sources: sources.trim(),
-                link: link.trim()
-            };
-
-        } catch (err) {
-            console.error(`Error loading ${folder}:`, err);
-            return null;
-        }
-    });
-
-    const results = await Promise.all(promises);
-
-    // Remove failed entries
-    return results.filter(r => r !== null);
-}
-
 </script>
 
 <style>
@@ -124,7 +49,39 @@ h1{
 }
 
 #library{
-	border: 2px solid #a5a5a5;
+	border: 2px solid #a5a5a5;	
+    max-width: 20em;
+    position: relative;
+}
+
+.keyboard {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	max-width: 600px; /* adjust as needed */
+}
+
+.key {
+	flex: 1 1 calc(10% - 8px); /* controls how many per row */
+	min-width: 50px;
+	padding: 0.2em 0;
+	text-align: center;
+	background: #e0e0e0;
+	border-radius: 1em;
+	cursor: pointer;
+	user-select: none;
+	font-size: 18px;
+	transition: background 0.2s;
+	position: absolute;
+	bottom: 0;
+}
+
+.key:hover {
+	background: #d5d5d5;
+}
+
+.key:active {
+	background: #c8c8c8;
 }
 
 #recordingList{
@@ -171,6 +128,36 @@ h1{
 	<div id="library">
 		<input id="search" placeholder="Search Recordings...">
 		<div id="recordingList"></div>
+		<div class="keyboard">
+		  <!-- Hebrew letters -->
+		  <div class="key">א</div>
+		  <div class="key">ב</div>
+		  <div class="key">ג</div>
+		  <div class="key">ד</div>
+		  <div class="key">ה</div>
+		  <div class="key">ו</div>
+		  <div class="key">ז</div>
+		  <div class="key">ח</div>
+		  <div class="key">ט</div>
+		  <div class="key">י</div>
+		  <div class="key">כ</div>
+		  <div class="key">ל</div>
+		  <div class="key">מ</div>
+		  <div class="key">נ</div>
+		  <div class="key">ס</div>
+		  <div class="key">ע</div>
+		  <div class="key">פ</div>
+		  <div class="key">צ</div>
+		  <div class="key">ק</div>
+		  <div class="key">ר</div>
+		  <div class="key">ש</div>
+		  <div class="key">ת</div>
+
+		  <!-- Extras -->
+		  <div class="key">'</div>
+		  <div class="key">"</div>
+		  <div class="key">␣</div> <!-- space -->
+		</div>
 	</div>
 
 	<div id="playerArea">
@@ -182,6 +169,46 @@ h1{
 
 
 <script>
+async function init() {
+	var recordings;
+    await loadRecordings(folders).then(data => {
+		console.log(data);
+		recordings = data;
+	});
+    renderRecordings(recordings)
+}
+
+init();
+
+async function loadRecordings(folders) {
+    const promises = folders.map(async (folder) => {
+        const basePath = `/content/${folder}/`;
+
+        try {
+            const [sources, link] = await Promise.all([
+                fetch(basePath + 'mm.txt').then(r => r.text()),
+                fetch(basePath + 'thd.txt').then(r => r.text())
+            ]);
+
+            return {
+                title: folder, // or format this if needed
+                audio: basePath + 'audio.mp3',
+                sources: sources.trim(),
+                link: link.trim()
+            };
+
+        } catch (err) {
+            console.error(`Error loading ${folder}:`, err);
+            return null;
+        }
+    });
+
+    const results = await Promise.all(promises);
+
+    // Remove failed entries
+    return results.filter(r => r !== null);
+}
+	
 const recordingList = document.getElementById("recordingList");
 const search = document.getElementById("search");
 
@@ -209,9 +236,6 @@ search.addEventListener("input",()=>{
 	);
 	renderRecordings(filtered);
 });
-
-//renderRecordings(recordings);
-
 </script>
 
 </body>
