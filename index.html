@@ -170,7 +170,8 @@ h1{
 <script>
 const recordingList = document.getElementById("recordingList");
 	const keys = document.querySelectorAll('.key');
-	const search = document.getElementById("search");
+	const search = document.getElementById("search");	
+	let recordings = null;
 
   keys.forEach(key => {
     key.addEventListener('click', () => {
@@ -194,7 +195,6 @@ const recordingList = document.getElementById("recordingList");
   });
 	
 async function init() {
-	var recordings;
     await loadRecordings(folders).then(data => {
 		console.log(data);
 		recordings = data;
