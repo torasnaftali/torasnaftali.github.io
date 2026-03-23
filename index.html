@@ -12,8 +12,9 @@ const folders = [
 </script>
 
 <script>
-  const keys = document.querySelectorAll('.key');
-  const search = document.getElementById("search");
+	const recordingList = document.getElementById("recordingList");
+	const keys = document.querySelectorAll('.key');
+	const search = document.getElementById("search");
 
   keys.forEach(key => {
     key.addEventListener('click', () => {
@@ -234,8 +235,6 @@ async function loadRecordings(folders) {
     return results.filter(r => r !== null);
 }
 	
-const recordingList = document.getElementById("recordingList");
-const search = document.getElementById("search");
 
 function renderRecordings(list){
 	recordingList.innerHTML="";
