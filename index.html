@@ -91,11 +91,16 @@ body{
     font-family: Arial;
     margin:40px;
     background:#f6f6f6;
-	height: calc(100vh - 80px);
+	height: calc(100vh - 80px);	
+	direction: rtl;
 }
 
 h1{
     margin-bottom:10px;
+}
+
+#title {
+	margin: 1.5em;
 }
 
 #wrapper {
@@ -114,6 +119,8 @@ h1{
     border: none;
     height: 2em;
     border-bottom: 1px solid #a5a5a5;
+	direction: ltr;
+    width: calc(100% - 1em);
 }
 
 #library{
@@ -149,7 +156,11 @@ h1{
     white-space: pre-line;
     font-family: monospace;
     flex: 1;
-    padding: 2em;
+    margin: 2em;
+    overflow-y: scroll;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    font-size: 1.5em;
 }
 </style>
 </head>
