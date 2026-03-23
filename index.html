@@ -9,34 +9,7 @@ const folders = [
 	`שיעור פשוט שו''ט של הגמרא של לפירות ירדתי`,
 	`example`
 ];
-</script>
-
-<script>
-	const recordingList = document.getElementById("recordingList");
-	const keys = document.querySelectorAll('.key');
-	const search = document.getElementById("search");
-
-  keys.forEach(key => {
-    key.addEventListener('click', () => {
-		console.log(key.textContent);
-      const char = key.textContent === '␣' ? ' ' : key.textContent;
-
-      // Insert at cursor position
-      const start = search.selectionStart;
-      const end = search.selectionEnd;
-      const value = search.value;
-
-      search.value = value.slice(0, start) + char + value.slice(end);
-
-      // Move cursor after inserted character
-      search.selectionStart = search.selectionEnd = start + char.length;
-
-      // Keep focus
-      search.focus();
-    });
-  });
-</script>
-	
+</script>	
 <style>
 body{
     font-family: Arial;
@@ -195,6 +168,30 @@ h1{
 
 
 <script>
+const recordingList = document.getElementById("recordingList");
+	const keys = document.querySelectorAll('.key');
+	const search = document.getElementById("search");
+
+  keys.forEach(key => {
+    key.addEventListener('click', () => {
+		console.log(key.textContent);
+      const char = key.textContent === '␣' ? ' ' : key.textContent;
+
+      // Insert at cursor position
+      const start = search.selectionStart;
+      const end = search.selectionEnd;
+      const value = search.value;
+
+      search.value = value.slice(0, start) + char + value.slice(end);
+
+      // Move cursor after inserted character
+      search.selectionStart = search.selectionEnd = start + char.length;
+
+      // Keep focus
+      search.focus();
+    });
+  });
+	
 async function init() {
 	var recordings;
     await loadRecordings(folders).then(data => {
