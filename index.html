@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Audio Library</title>
+
+<script>
+const recordings = [
+
+{
+title:"Example Recording",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+sources:
+`Line one of sources
+Line two of sources
+Line three of sources`
+},
+
+{
+title:"Another Recording",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+sources:
+`First line
+Second line
+Third line`
+},
+
+{
+title:"Third Recording",
+audio:"https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+sources:
+`Sources go here
+More sources here`
+}
+
+];
+</script>
+
+<style>
+body{
+    font-family: Arial;
+    margin:40px;
+    background:#f6f6f6;
+	height: calc(100vh - 80px);
+}
+
+h1{
+    margin-bottom:10px;
+}
+
+#wrapper {
+    display: flex;
+    height: 100%;
+}
+
+#search::after {
+	content: " ";
+}
+
+#search{
+    padding: 0.5em;
+    width: 14em;
+    font-size: 16px;
+    border: none;
+    height: 2em;
+    border-bottom: 1px solid #a5a5a5;
+}
+
+#library{
+	border: 2px solid #a5a5a5;
+}
+
+#recordingList{
+    background: white;
+    overflow-y: scroll;
+    height: calc(100vh - 3em - 84px);
+}
+
+.recording{
+    padding: 8px;
+    cursor: pointer;
+    border-bottom: 1px solid #a5a5a5;
+}
+
+.recording:hover{
+    background:#f0f0f0;
+}
+
+#playerArea{
+    background: white;
+    padding-left: 20px;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+#sources{
+    white-space: pre-line;
+    font-family: monospace;
+    flex: 1;
+    padding: 2em;
+}
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+	<div id="library">
+		<input id="search" placeholder="Search Recordings...">
+		<div id="recordingList"></div>
+	</div>
+
+	<div id="playerArea">
+		<h2 id="title">Select a song</h2>
+		<div id="sources"></div>
+		<audio id="player" controls style="width:100%"></audio>
+	</div>
+</div>
+
+
+<script>
+const recordingList = document.getElementById("recordingList");
+const search = document.getElementById("search");
+
+function renderRecordings(list){
+	recordingList.innerHTML="";
+	list.forEach(recording => {
+		const div = document.createElement("div");
+		div.className="recording";
+		div.textContent=recording.title;
+		div.onclick=()=>loadRecording(recording);
+		recordingList.appendChild(div);
+	});
+}
+
+function loadRecording(recording){
+	document.getElementById("title").textContent = recording.title;
+	document.getElementById("player").src = recording.audio;
+	document.getElementById("sources").textContent = recording.sources;
+}
+
+search.addEventListener("input",()=>{
+	const q = search.value.toLowerCase();
+	const filtered = recordings.filter(s =>
+		s.title.toLowerCase().includes(q)
+	);
+	renderRecordings(filtered);
+});
+
+renderRecordings(recordings);
+
+</script>
+
+</body>
+</html>
