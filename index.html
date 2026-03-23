@@ -40,16 +40,20 @@ const folders = [
 	`example`
 ];
 	
-var recordings;
-	
-loadRecordings(folders).then(data => {
-    console.log(data);
+async function init() {
+	var recordings;
+    await loadRecordings(folders).then(data => {
+		console.log(data);
 
-    // If your site expects a global variable:
-    recordings = data;
+		// If your site expects a global variable:
+		recordings = data;
 
-    // or call your render function here
-});
+		// or call your render function here
+	});
+    renderRecordings(recordings)
+}
+
+init();
 
 async function loadRecordings(folders) {
     const promises = folders.map(async (folder) => {
@@ -195,7 +199,7 @@ search.addEventListener("input",()=>{
 	renderRecordings(filtered);
 });
 
-renderRecordings(recordings);
+//renderRecordings(recordings);
 
 </script>
 
