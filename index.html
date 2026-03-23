@@ -11,6 +11,39 @@ const folders = [
 ];
 </script>
 
+<script>
+  const keys = document.querySelectorAll('.key');
+  let activeInput = null;
+
+  // Track the currently focused input
+  document.addEventListener('focusin', (e) => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+      activeInput = e.target;
+    }
+  });
+
+  keys.forEach(key => {
+    key.addEventListener('click', () => {
+      if (!activeInput) return;
+
+      const char = key.textContent === '␣' ? ' ' : key.textContent;
+
+      // Insert at cursor position
+      const start = activeInput.selectionStart;
+      const end = activeInput.selectionEnd;
+      const value = activeInput.value;
+
+      activeInput.value = value.slice(0, start) + char + value.slice(end);
+
+      // Move cursor after inserted character
+      activeInput.selectionStart = activeInput.selectionEnd = start + char.length;
+
+      // Keep focus
+      activeInput.focus();
+    });
+  });
+</script>
+	
 <style>
 body{
     font-family: Arial;
