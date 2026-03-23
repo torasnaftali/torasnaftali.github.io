@@ -39,12 +39,14 @@ const folders = [
 	`שיעור פשוט שו''ט של הגמרא של לפירות ירדתי`,
 	`example`
 ];
-
-loadRecordings(folders).then(recordings => {
-    console.log(recordings);
+	
+var recordings;
+	
+loadRecordings(folders).then(data => {
+    console.log(data);
 
     // If your site expects a global variable:
-    window.recordings = recordings;
+    recordings = data;
 
     // or call your render function here
 });
