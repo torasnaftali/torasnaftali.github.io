@@ -189,6 +189,7 @@ const recordingList = document.getElementById("recordingList");
 
       // Keep focus
       search.focus();
+		filter();
     });
   });
 	
@@ -250,13 +251,15 @@ function loadRecording(recording){
 	document.getElementById("sources").textContent = recording.sources;
 }
 
-search.addEventListener("input",()=>{
-	const q = search.value.toLowerCase();
-	const filtered = recordings.filter(s =>
-		s.title.toLowerCase().includes(q)
-	);
-	renderRecordings(filtered);
-});
+search.addEventListener("input", filter);
+
+	function filter(){
+		const q = search.value.toLowerCase();
+		const filtered = recordings.filter(s =>
+			s.title.toLowerCase().includes(q)
+		);
+		renderRecordings(filtered);
+	}
 </script>
 
 </body>
