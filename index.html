@@ -262,6 +262,7 @@ function loadRecording(recording){
 	document.getElementById("title").textContent = recording.title;
 	document.getElementById("player").src = recording.audio;
 	document.getElementById("sources").textContent = recording.sources;
+	document.getElementById("link").href = recording.link;
 }
 
 search.addEventListener("input", filter);
